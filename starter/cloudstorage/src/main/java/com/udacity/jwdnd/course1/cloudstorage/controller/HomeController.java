@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import com.udacity.jwdnd.course1.cloudstorage.model.FileModel;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -17,7 +18,8 @@ import java.io.*;
 @Controller
 
 public class HomeController {
-    private final String filepath = "D:/javalearn/files/";
+    private File projectDirectory = new File("");
+    private final String filepath = projectDirectory.getAbsolutePath()+"/files/";
 
     private UserService userService;
     private HomeService homeService;
@@ -45,7 +47,7 @@ public class HomeController {
     }
 
     @RequestMapping("/uploadfile")
-    public String uploaddata(Authentication authentication, MultipartFile fileUpload, FileModel fileModel, Model model) throws IOException {
+    public String uploaddata(Authentication authentication, MultipartFile fileUpload, FileModel fileModel, Model model, final RedirectAttributes attributes) throws IOException {
         String upLoadFileName = fileUpload.getOriginalFilename();
         if (fileUpload.isEmpty()){
             model.addAttribute("filetip","File not selected");
@@ -66,6 +68,10 @@ public class HomeController {
         homeService.UploadFile(fileModel);
         fileUpload.transferTo(new File(filepath+fileUpload.getOriginalFilename()));
 
+        attributes.addFlashAttribute("uploadSuccess", true);
+        attributes.addFlashAttribute("uploadItem", "File Upload success!");
+
+
 
         System.out.println("success");
         model.addAttribute("fileModels",this.homeService.GetAllFiles(userid));
@@ -73,17 +79,21 @@ public class HomeController {
     }
 
     @GetMapping("/delete/{filename}")
-    public String DeleteFile(@PathVariable("filename") String filename, Model model){
+    public String DeleteFile(@PathVariable("filename") String filename, Model model,  final RedirectAttributes attributes){
         homeService.Deletefile(filename);
         File file = new File(filepath+filename);
         if (file.exists()) {
             file.delete();
             System.out.println("===========deleteSuccess=================");
+            attributes.addFlashAttribute("uploadSuccess", true);
+            attributes.addFlashAttribute("uploadItem", "File Delete success!");
 
         } else {
             System.out.println("===============deleteFailed==============");
 
         }
+
+
 
         model.addAttribute("fileModels",this.homeService.GetAllFiles(userid));
         return "redirect:/home";
@@ -123,7 +133,7 @@ public class HomeController {
     }
 
     @RequestMapping("/uploadNote")
-    public String UploadNote(Authentication authentication, Model model, Note note, @ModelAttribute("noteId") String noteId){
+    public String UploadNote(Authentication authentication, Model model, Note note, @ModelAttribute("noteId") String noteId,  final RedirectAttributes attributes){
         System.out.println(noteId);
 
 
@@ -132,10 +142,14 @@ public class HomeController {
 
             note.setNoteid(Integer.valueOf(noteId).intValue());
             homeService.UpDateNote(note);
+            attributes.addFlashAttribute("uploadSuccess", true);
+            attributes.addFlashAttribute("uploadItem", "Note Edit success!");
 
         }else{
             note.setUserid(userService.getUser(authentication.getName()).getUserId());
             homeService.UploadNote(note);
+            attributes.addFlashAttribute("uploadSuccess", true);
+            attributes.addFlashAttribute("uploadItem", "Note Upload success!");
         }
 
         model.addAttribute("Notes",this.homeService.GetAllNotes(userid));
@@ -144,15 +158,17 @@ public class HomeController {
     }
 
     @GetMapping("/deleteNote/{noteid}")
-    public String DeleteNode(@PathVariable("noteid") int noteid, Model model){
+    public String DeleteNode(@PathVariable("noteid") int noteid, Model model,  final RedirectAttributes attributes){
         homeService.DeleteNote(noteid);
         model.addAttribute("Notes",this.homeService.GetAllNotes(userid));
+        attributes.addFlashAttribute("uploadSuccess", true);
+        attributes.addFlashAttribute("uploadItem", "Note Delete success!");
         return "redirect:/home";
 
     }
 
     @RequestMapping("/uploadCredential")
-    public String UploadCredential(Authentication authentication, Model model, Credential credential, @ModelAttribute("credentialId") String credentialid){
+    public String UploadCredential(Authentication authentication, Model model, Credential credential, @ModelAttribute("credentialId") String credentialid,  final RedirectAttributes attributes){
 
 
 
@@ -161,9 +177,13 @@ public class HomeController {
             credential.setCredentialid(Integer.valueOf(credentialid).intValue());
 
             homeService.UpDateCredential(credential);
+            attributes.addFlashAttribute("uploadSuccess", true);
+            attributes.addFlashAttribute("uploadItem", "Credential Edit success!");
 
         }else{
             credential.setUserid(userService.getUser(authentication.getName()).getUserId());
+            attributes.addFlashAttribute("uploadSuccess", true);
+            attributes.addFlashAttribute("uploadItem", "Credential Upload success!");
             homeService.UploadCredential(credential);
         }
 
@@ -173,9 +193,11 @@ public class HomeController {
     }
 
     @GetMapping("/deleteCredential/{credentialid}")
-    public String DeleteCredential(@PathVariable("credentialid") int credentialid, Model model){
+    public String DeleteCredential(@PathVariable("credentialid") int credentialid, Model model,  final RedirectAttributes attributes){
         homeService.DeleteCredential(credentialid);
         //model.addAttribute("credentials",this.homeService.GetAllCredentials());
+        attributes.addFlashAttribute("uploadSuccess", true);
+        attributes.addFlashAttribute("uploadItem", "Credential Delete success!");
         return "redirect:/home";
 
     }

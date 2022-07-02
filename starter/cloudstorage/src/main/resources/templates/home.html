@@ -12,10 +12,12 @@
         <div class="container">
             <div id="logoutDiv">
                 <form action="/logout" method="POST">
-                    <button type="submit" class="btn btn-secondary float-right">Logout</button>
+                    <button type="submit" id="logout" class="btn btn-secondary float-right">Logout</button>
                 </form>
             </div>
             <div id="contentDiv" style="clear: right;">
+                <div id="success-msg" th:if="${uploadSuccess}" th:text="${uploadItem}" class="alert alert-dark">
+                </div>
                 <nav style="clear: right;">
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link active" id="nav-files-tab" data-toggle="tab" href="#nav-files" role="tab" aria-controls="nav-files" aria-selected="true">Files</a>
@@ -23,6 +25,7 @@
                         <a class="nav-item nav-link" id="nav-credentials-tab" data-toggle="tab" href="#nav-credentials" role="tab" aria-controls="nav-credentials" aria-selected="false">Credentials</a>
                     </div>
                 </nav>
+
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
                         <form action="uploadfile" enctype="multipart/form-data" method="POST">
@@ -79,7 +82,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="Note: ${Notes}",id="filelist">
+                                    <tr th:each="Note: ${Notes}",id="notelist">
                                         <td>
                                             <button th:onclick="javascript:showNoteModal([[${Note.noteid}]],[[${Note.noteTitle}]],[[${Note.noteDescription}]])"  type="button" class="btn btn-success">Edit</button>
                                             <a th:href="@{/deleteNote/}+${Note.noteid}" class="btn btn-danger">Delete</a>

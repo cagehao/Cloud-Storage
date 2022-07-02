@@ -201,6 +201,57 @@ class CloudStorageApplicationTests {
 
 	}
 
+	@Test
+	public void testAuthentiacation(){
+		driver.get("http://localhost:" + this.port + "/home");
+
+		Assertions.assertEquals("http://localhost:" + this.port + "/login", driver.getCurrentUrl());
+		doMockSignUp("332","232","aut","123");
+		doLogIn("aut", "123");
+
+		driver.get("http://localhost:" + this.port + "/home");
+		Assertions.assertEquals("http://localhost:" + this.port + "/home", driver.getCurrentUrl());
+
+		doLogOut();
+		driver.get("http://localhost:" + this.port + "/home");
+		Assertions.assertEquals("http://localhost:" + this.port + "/login", driver.getCurrentUrl());
+
+	}
+
+	private void doLogOut() {
+		WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
+		driver.get("http://localhost:" + this.port + "/home");
+
+
+
+		// Fill out credentials
+		webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("logout")));
+		WebElement logoutbutton = driver.findElement(By.id("logout"));
+		logoutbutton.click();
+	}
+
+	@Test
+	private void TestNote(){
+		doMockSignUp("Large File","Test","332","123");
+		doLogIn("332", "123");
+
+		// Try to upload an arbitrary large file
+		WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
+
+
+		webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nav-notes-tab")));
+		WebElement noteNavTab = driver.findElement(By.id("nav-notes-tab"));
+		noteNavTab.click();
+
+		WebElement uploadButton = driver.findElement(By.id("uploadButton"));
+		uploadButton.click();
+		try {
+			webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.id("success")));
+		} catch (org.openqa.selenium.TimeoutException e) {
+			System.out.println("Large File upload failed");
+		}
+		Assertions.assertFalse(driver.getPageSource().contains("HTTP Status 403 – Forbidden"));
+	}
 
 
 }
