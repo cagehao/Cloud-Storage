@@ -12,7 +12,7 @@ This is a personal cloud storage application that forked from the project starte
 2. Run starter/cloudstorage/src/main/java/com/udacity/jwdnd/course1/cloudstorage/CloudStorageApplication.java 
 3. access <locahost:8080/login> in browser
 
-## Requirements and Roadmap
+## Features and Roadmap
 
 1. The back-end with Spring Boot
 2. The front-end with Thymeleaf
