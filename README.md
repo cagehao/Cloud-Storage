@@ -1,5 +1,6 @@
 # Super*Duper*Drive Cloud Storage
 ![filepage.png](https://raw.github.com/cagehao/Cloud-Storage/master/images/filepage.png)
+![noteupload.png](https://raw.github.com/cagehao/Cloud-Storage/master/images/noteupload.png)
 This is a personal cloud storage application that forked from the project starter of udacity Java Web Developer Course with some basic settings, And I developed it to have the following user-facing features:
 
 1. **Simple File Storage:** Upload/download/remove files
