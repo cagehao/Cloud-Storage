@@ -6,7 +6,7 @@ This is a personal cloud storage application that forked from the project starte
 3. **Password Management:** Save, edit, and delete website credentials.  
 
 ## Get started
-Open the starter/cloudstorage/pom.xml as project
+Open the "starter/cloudstorage/pom.xml" as project
 
 ## Requirements and Roadmap
 
