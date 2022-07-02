@@ -5,6 +5,8 @@ This is a personal cloud storage application that forked from the project starte
 2. **Note Management:** Add/update/remove text notes
 3. **Password Management:** Save, edit, and delete website credentials.  
 
+##Get started
+Open the pom.xml as project
 
 ## Requirements and Roadmap
 
