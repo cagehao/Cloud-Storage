@@ -6,7 +6,9 @@ This is a personal cloud storage application that forked from the project starte
 3. **Password Management:** Save, edit, and delete website credentials.  
 
 ## Get started
-Open the "starter/cloudstorage/pom.xml" as project
+1. Open the "starter/cloudstorage/pom.xml" as project
+2. Run starter/cloudstorage/src/main/java/com/udacity/jwdnd/course1/cloudstorage/CloudStorageApplication.java 
+3. access locahost:8080/login in browser
 
 ## Requirements and Roadmap
 
