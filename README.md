@@ -1,6 +1,6 @@
 # Super*Duper*Drive Cloud Storage
 
-# Demo:http://ec2-52-91-196-164.compute-1.amazonaws.com:49157/home
+Demo:http://ec2-52-91-196-164.compute-1.amazonaws.com:49157/home
 
 ![filepage.png](https://raw.github.com/cagehao/Cloud-Storage/master/images/filepage.png)
 ![noteupload.png](https://raw.github.com/cagehao/Cloud-Storage/master/images/noteupload.png)
