@@ -1,11 +1,14 @@
 # Super*Duper*Drive Cloud Storage
 
-Demo:http://ec2-52-91-196-164.compute-1.amazonaws.com:49155/login
+
 This is a personal cloud storage application that forked from the project starter of udacity Java Web Developer Course with some basic settings, And I developed it to have the following user-facing features:
 
 1. **Simple File Storage:** Upload/download/remove files
 2. **Note Management:** Add/update/remove text notes
 3. **Password Management:** Save, edit, and delete website credentials.  
+
+- Demo:http://ec2-52-91-196-164.compute-1.amazonaws.com:49155/login
+
 ![filepage.png](https://raw.github.com/cagehao/Cloud-Storage/master/images/filepage.png)
 ![noteupload.png](https://raw.github.com/cagehao/Cloud-Storage/master/images/noteupload.png)
 
